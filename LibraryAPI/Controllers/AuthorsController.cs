@@ -23,7 +23,7 @@ namespace LibraryAPI.Controllers
         {
             var authorsFromRepo = libraryRepository.GetAuthors();
 
-            var authors = Mapper.Map<IEnumerable<AuthorDTO>>(authorsFromRepo);
+            var authors = Mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo);
 
             return Ok(authors);
         }
@@ -38,7 +38,7 @@ namespace LibraryAPI.Controllers
                 return NotFound();
             }
 
-            var author = Mapper.Map<AuthorDTO>(authorFromRepo);
+            var author = Mapper.Map<AuthorDto>(authorFromRepo);
 
             return Ok(author);
         }
