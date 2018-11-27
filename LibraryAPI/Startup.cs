@@ -66,6 +66,8 @@ namespace LibraryAPI
                 mapper.CreateMap<Entities.Book, Models.BookDto>();
 
                 mapper.CreateMap<Models.AuthorForCreationDto, Entities.Author>();
+
+                mapper.CreateMap<Models.BookForCreationDto, Entities.Book>();
             });
 
             libraryContext.EnsureSeedDataForContext();
