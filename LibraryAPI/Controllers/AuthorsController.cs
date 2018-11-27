@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LibraryAPI.Entities;
 using LibraryAPI.Models;
 using LibraryAPI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,8 @@ namespace LibraryAPI.Controllers
     [Route("api/authors")]
     public class AuthorsController : Controller
     {
+        private const string GetAuthorRoute = "GetAuthor";
+
         private readonly ILibraryRepository libraryRepository;
 
         public AuthorsController(ILibraryRepository libraryRepository)
@@ -28,7 +31,7 @@ namespace LibraryAPI.Controllers
             return Ok(authors);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = GetAuthorRoute)]
         public IActionResult GetAuthor(Guid id)
         {
             var authorFromRepo = libraryRepository.GetAuthor(id);
@@ -41,6 +44,33 @@ namespace LibraryAPI.Controllers
             var author = Mapper.Map<AuthorDto>(authorFromRepo);
 
             return Ok(author);
+        }
+
+        [HttpPost]
+        public IActionResult CreateAuthor([FromBody] AuthorForCreationDto author)
+        {
+            if (author == null)
+            {
+                return BadRequest();
+            }
+
+            var authorEntity = Mapper.Map<Author>(author);
+
+            libraryRepository.AddAuthor(authorEntity);
+
+            if (!libraryRepository.Save())
+            {
+                //return StatusCode(500, "");
+                throw new Exception("Creating an author failed to save");
+            }
+
+            var authorToReturn = Mapper.Map<AuthorDto>(authorEntity);
+
+            return CreatedAtRoute(GetAuthorRoute, new
+            {
+                id = authorToReturn.Id
+            }, 
+            authorToReturn);
         }
     }
 }

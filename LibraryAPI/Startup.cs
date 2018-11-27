@@ -58,10 +58,14 @@ namespace LibraryAPI
                 });
             }
 
-            AutoMapper.Mapper.Initialize(authorMapper => {
-                authorMapper.CreateMap<Entities.Author, Models.AuthorDto>()
+            AutoMapper.Mapper.Initialize(mapper => {
+                mapper.CreateMap<Entities.Author, Models.AuthorDto>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
                 .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.GetCurrentAge()));
+
+                mapper.CreateMap<Entities.Book, Models.BookDto>();
+
+                mapper.CreateMap<Models.AuthorForCreationDto, Entities.Author>();
             });
 
             libraryContext.EnsureSeedDataForContext();
