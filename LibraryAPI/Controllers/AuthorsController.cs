@@ -2,6 +2,7 @@
 using LibraryAPI.Entities;
 using LibraryAPI.Models;
 using LibraryAPI.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -71,6 +72,21 @@ namespace LibraryAPI.Controllers
                 id = authorToReturn.Id
             }, 
             authorToReturn);
+        }
+
+        [HttpPost("{id}")]
+        public IActionResult BlockAuthorCreation(Guid id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+
+            if (libraryRepository.AuthorExists(id))
+            {
+                return new StatusCodeResult(StatusCodes.Status409Conflict);
+            }
+            return NotFound();
         }
     }
 }
