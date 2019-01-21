@@ -126,7 +126,18 @@ namespace LibraryAPI.Controllers
             var bookForAuthorFromRepo = libraryRepository.GetBookForAuthor(authorId, id);
             if (bookForAuthorFromRepo == null)
             {
-                return NotFound();
+                var bookEntity = Mapper.Map<Book>(book);
+
+                libraryRepository.AddBookForAuthor(authorId, bookEntity);
+
+                if (!libraryRepository.Save())
+                {
+                    throw new Exception($"creating a book for author {authorId} failed to save");
+                }
+
+                var book2Return = Mapper.Map<BookDto>(bookEntity);
+
+                return CreatedAtRoute(GetBookForAuthorRoute, new { id = book2Return.Id }, book2Return);
             }
 
             Mapper.Map(book, bookForAuthorFromRepo);
