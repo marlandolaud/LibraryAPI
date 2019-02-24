@@ -65,6 +65,11 @@ namespace LibraryAPI.Controllers
                 return BadRequest();
             }
 
+            if (book.Description == book.Title)
+            {
+                ModelState.AddModelError(nameof(BookForCreationDto), "title can not be the same as description");
+            }
+
             if (!ModelState.IsValid)
             {
                 // return 422
