@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LibraryAPI.Entities;
+using LibraryAPI.Helpers;
 using LibraryAPI.Models;
 using LibraryAPI.Services;
 using Microsoft.AspNetCore.JsonPatch;
@@ -62,6 +63,12 @@ namespace LibraryAPI.Controllers
             if (book == null)
             {
                 return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                // return 422
+                return new UnprocessableEntityObjectResult(ModelState);
             }
 
             if (!libraryRepository.AuthorExists(authorId))
