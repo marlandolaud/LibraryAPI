@@ -6,15 +6,15 @@
     {
         public void Validate(BookForCreationDto book, ModelStateDictionary modelState)
         {
-            ValidatetTitleNotDesc(book, modelState);
+            TitleAndDescriptionNotSame(book, modelState);
         }
 
         public void Validate(BookForUpdateDto book, ModelStateDictionary modelState)
         {
-            ValidatetTitleNotDesc(book, modelState);
+            TitleAndDescriptionNotSame(book, modelState);
         }
 
-        private void ValidatetTitleNotDesc(BookForManipulationDto book, ModelStateDictionary modelState)
+        private void TitleAndDescriptionNotSame(BookForManipulationDto book, ModelStateDictionary modelState)
         {
             if (book.Description == book.Title)
             {
