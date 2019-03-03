@@ -16,7 +16,7 @@ namespace LibraryAPI.Controllers
     {
         private const string GetBookForAuthorRoute = "GetBookForAuthor";
 
-        public ILibraryRepository libraryRepository { get; }
+        private readonly ILibraryRepository libraryRepository;
 
         public BookController(ILibraryRepository libraryRepository)
         {
