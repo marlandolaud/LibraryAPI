@@ -72,7 +72,6 @@ namespace LibraryAPI.Controllers
 
             if (!ModelState.IsValid)
             {
-                // return 422
                 return new UnprocessableEntityObjectResult(ModelState);
             }
 
@@ -183,8 +182,7 @@ namespace LibraryAPI.Controllers
 
                 patchDoc.ApplyTo(bookDto, ModelState);
 
-                //validate
-                // add validation
+                // validate
                 if (bookDto.Description == bookDto.Title)
                 {
                     ModelState.AddModelError(nameof(BookForCreationDto), "title can not be the same as description");
@@ -194,7 +192,6 @@ namespace LibraryAPI.Controllers
 
                 if (!ModelState.IsValid)
                 {
-                    // return 422
                     return new UnprocessableEntityObjectResult(ModelState);
                 }
 
@@ -217,8 +214,8 @@ namespace LibraryAPI.Controllers
 
             patchDoc.ApplyTo(bookToPatch, ModelState);
 
-            // add validation
-            if(bookToPatch.Description == bookToPatch.Title)
+            // validate
+            if (bookToPatch.Description == bookToPatch.Title)
             {
                 ModelState.AddModelError(nameof(BookForCreationDto), "title can not be the same as description");
             }
@@ -227,7 +224,6 @@ namespace LibraryAPI.Controllers
 
             if (!ModelState.IsValid)
             {
-                // return 422
                 return new UnprocessableEntityObjectResult(ModelState);
             }
 

@@ -1,14 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace LibraryAPI.Helpers
+﻿namespace LibraryAPI.Helpers
 {
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.ModelBinding;
+    using System;
+
     public class UnprocessableEntityObjectResult : ObjectResult
     {
+        /// <summary>
+        /// returns 422 unprocessable Entity ObjectResult
+        /// </summary>
+        /// <param name="modelState"></param>
         public UnprocessableEntityObjectResult(ModelStateDictionary modelState) 
             : base(new SerializableError(modelState))
         {
@@ -19,6 +20,5 @@ namespace LibraryAPI.Helpers
 
             StatusCode = 422;
         }
-
     }
 }
