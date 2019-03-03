@@ -4,6 +4,7 @@ using LibraryAPI.Models;
 using LibraryAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -14,11 +15,12 @@ namespace LibraryAPI.Controllers
     public class AuthorsController : Controller
     {
         private const string GetAuthorRoute = "GetAuthor";
-
+        private readonly ILogger<AuthorsController> logger;
         private readonly ILibraryRepository libraryRepository;
 
-        public AuthorsController(ILibraryRepository libraryRepository)
+        public AuthorsController(ILogger<AuthorsController> logger, ILibraryRepository libraryRepository)
         {
+            this.logger = logger;
             this.libraryRepository = libraryRepository;
         }
 
@@ -105,7 +107,11 @@ namespace LibraryAPI.Controllers
 
             libraryRepository.DeleteAuthor(authorFromRepo);
 
-            if (!libraryRepository.Save())
+            if (libraryRepository.Save())
+            {
+                logger.LogInformation(1000, $"Deleted author {id}");
+            }
+            else
             {
                 throw new Exception($"Deleting author {id} failed");
             }

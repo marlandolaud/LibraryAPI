@@ -6,6 +6,7 @@ using LibraryAPI.Models.Validations;
 using LibraryAPI.Services;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 
@@ -16,12 +17,13 @@ namespace LibraryAPI.Controllers
     public class BookController : Controller
     {
         private const string GetBookForAuthorRoute = "GetBookForAuthor";
-
+        private readonly ILogger<BookController> logger;
         private readonly ILibraryRepository libraryRepository;
         private readonly IBookValidation bookValidation;
 
-        public BookController(ILibraryRepository libraryRepository, IBookValidation bookValidation)
+        public BookController(ILogger<BookController> logger, ILibraryRepository libraryRepository, IBookValidation bookValidation)
         {
+            this.logger = logger;
             this.libraryRepository = libraryRepository;
             this.bookValidation = bookValidation;
         }
@@ -110,7 +112,11 @@ namespace LibraryAPI.Controllers
 
             libraryRepository.DeleteBook(bookForAuthorFromRepo);
 
-            if (!libraryRepository.Save())
+            if (libraryRepository.Save())
+            {
+                logger.LogInformation(1000, $"Deleted book {id} for author {authorId}");
+            }
+            else
             {
                 throw new Exception($"Deleting book {id} for author {authorId} failed on save.");
             }
