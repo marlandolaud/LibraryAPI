@@ -2,6 +2,7 @@
 using LibraryAPI.Entities;
 using LibraryAPI.Helpers;
 using LibraryAPI.Models;
+using LibraryAPI.Models.Validations;
 using LibraryAPI.Services;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -17,10 +18,12 @@ namespace LibraryAPI.Controllers
         private const string GetBookForAuthorRoute = "GetBookForAuthor";
 
         private readonly ILibraryRepository libraryRepository;
+        private readonly IBookValidation bookValidation;
 
-        public BookController(ILibraryRepository libraryRepository)
+        public BookController(ILibraryRepository libraryRepository, IBookValidation bookValidation)
         {
             this.libraryRepository = libraryRepository;
+            this.bookValidation = bookValidation;
         }
 
         [HttpGet()]
@@ -65,10 +68,7 @@ namespace LibraryAPI.Controllers
                 return BadRequest();
             }
 
-            if (book.Description == book.Title)
-            {
-                ModelState.AddModelError(nameof(BookForCreationDto), "title can not be the same as description");
-            }
+            bookValidation.Validate(book, ModelState);
 
             if (!ModelState.IsValid)
             {
@@ -151,6 +151,15 @@ namespace LibraryAPI.Controllers
 
             Mapper.Map(book, bookForAuthorFromRepo);
 
+            bookValidation.Validate(book, ModelState);
+
+            TryValidateModel(book);
+            
+            if (!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
+
             libraryRepository.UpdateBookForAuthor(bookForAuthorFromRepo);
 
             if (!libraryRepository.Save())
@@ -182,11 +191,7 @@ namespace LibraryAPI.Controllers
 
                 patchDoc.ApplyTo(bookDto, ModelState);
 
-                // validate
-                if (bookDto.Description == bookDto.Title)
-                {
-                    ModelState.AddModelError(nameof(BookForCreationDto), "title can not be the same as description");
-                }
+                bookValidation.Validate(bookDto, ModelState);
 
                 TryValidateModel(bookDto);
 
@@ -214,14 +219,10 @@ namespace LibraryAPI.Controllers
 
             patchDoc.ApplyTo(bookToPatch, ModelState);
 
-            // validate
-            if (bookToPatch.Description == bookToPatch.Title)
-            {
-                ModelState.AddModelError(nameof(BookForCreationDto), "title can not be the same as description");
-            }
+            bookValidation.Validate(bookToPatch, ModelState);
 
             TryValidateModel(bookToPatch);
-
+            
             if (!ModelState.IsValid)
             {
                 return new UnprocessableEntityObjectResult(ModelState);

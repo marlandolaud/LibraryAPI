@@ -1,5 +1,6 @@
 ﻿using LibraryAPI.Entities;
 using LibraryAPI.Helpers;
+using LibraryAPI.Models.Validations;
 using LibraryAPI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,6 +39,7 @@ namespace LibraryAPI
 
             // register the repository
             services.AddScoped<ILibraryRepository, LibraryRepository>();
+            services.AddSingleton<IBookValidation, BookValidation>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
