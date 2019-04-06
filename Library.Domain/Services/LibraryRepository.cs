@@ -66,7 +66,23 @@
 
         public IEnumerable<Author> GetAuthors()
         {
-            return _context.Authors.OrderBy(a => a.FirstName).ThenBy(a => a.LastName);
+            return _context.Authors
+                .OrderBy(a => a.FirstName)
+                .ThenBy(a => a.LastName);
+        }
+
+        public IEnumerable<Author> GetAuthors(RepositoryPager pager)
+        {
+            if (pager == null)
+            {
+                return GetAuthors();
+            }
+
+            return _context.Authors
+                .Skip(pager.Page * pager.Size)
+                .Take(pager.Size)
+                .OrderBy(a => a.FirstName)
+                .ThenBy(a => a.LastName);
         }
 
         public IEnumerable<Author> GetAuthors(IEnumerable<Guid> authorIds)

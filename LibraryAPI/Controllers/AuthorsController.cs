@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using LibraryAPI.Helpers;
 
 namespace LibraryAPI.Controllers
 {
@@ -25,9 +26,9 @@ namespace LibraryAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAuthors()
+        public IActionResult GetAuthors(AuthorsResourceParameters authorsResourceParameters)
         {
-            var authorsFromRepo = libraryRepository.GetAuthors();
+            var authorsFromRepo = libraryRepository.GetAuthors(authorsResourceParameters); // map this to RepositoryPager
 
             var authors = Mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo);
 
