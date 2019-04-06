@@ -1,9 +1,9 @@
-﻿using Library.Domain.Entities;
-using System;
-using System.Collections.Generic;
-
-namespace Library.Domain.Services
+﻿namespace Library.Domain.Services
 {
+    using Library.Domain.Entities;
+    using System;
+    using System.Collections.Generic;
+
     public interface ILibraryRepository
     {
         IEnumerable<Author> GetAuthors();

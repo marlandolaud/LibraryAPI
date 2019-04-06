@@ -1,9 +1,9 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Library.Domain.Entities
+﻿namespace Library.Domain.Entities
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public class Book
     {
         [Key]       

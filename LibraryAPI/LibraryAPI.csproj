@@ -29,4 +29,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Library.Domain\Library.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

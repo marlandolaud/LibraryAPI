@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using LibraryAPI.Entities;
+using Library.Domain.Entities;
 using LibraryAPI.Helpers;
 using LibraryAPI.Models;
 using LibraryAPI.Models.Validations;
-using LibraryAPI.Services;
+using Library.Domain.Services;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

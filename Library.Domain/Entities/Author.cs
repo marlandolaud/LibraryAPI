@@ -1,10 +1,9 @@
-﻿using Library.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
-namespace Library.Domain.Entities
+﻿namespace Library.Domain.Entities
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
     public class Author
     {
         [Key]

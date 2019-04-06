@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryAPI", "LibraryAPI\LibraryAPI.csproj", "{D3DA258C-9436-4E3C-AB87-8DB0E94C030C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Domain", "Library.Domain\Library.Domain.csproj", "{F5C2E22A-8E32-4A93-83B5-6B9AB03DC35B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.Domain", "Library.Domain\Library.Domain.csproj", "{F5C2E22A-8E32-4A93-83B5-6B9AB03DC35B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

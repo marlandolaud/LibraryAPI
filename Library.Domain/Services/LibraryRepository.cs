@@ -1,10 +1,10 @@
-﻿using Library.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Library.Domain.Services
+﻿namespace Library.Domain.Services
 {
+    using Library.Domain.Entities;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class LibraryRepository : ILibraryRepository
     {
         private LibraryContext _context;
@@ -20,7 +20,7 @@ namespace Library.Domain.Services
             _context.Authors.Add(author);
 
             // the repository fills the id (instead of using identity columns)
-            if (author.Books.Any())
+            if (author?.Books != null && author.Books.Any())
             {
                 foreach (var book in author.Books)
                 {
@@ -80,23 +80,23 @@ namespace Library.Domain.Services
         public void UpdateAuthor(Author author)
         {
             // no code in this implementation
+            throw new NotImplementedException();
         }
 
         public Book GetBookForAuthor(Guid authorId, Guid bookId)
         {
-            return _context.Books
-              .Where(b => b.AuthorId == authorId && b.Id == bookId).FirstOrDefault();
+            return _context.Books.Where(b => b.AuthorId == authorId && b.Id == bookId).FirstOrDefault();
         }
 
         public IEnumerable<Book> GetBooksForAuthor(Guid authorId)
         {
-            return _context.Books
-                        .Where(b => b.AuthorId == authorId).OrderBy(b => b.Title).ToList();
+            return _context.Books.Where(b => b.AuthorId == authorId).OrderBy(b => b.Title).ToList();
         }
 
         public void UpdateBookForAuthor(Book book)
         {
             // no code in this implementation
+            throw new NotImplementedException();
         }
 
         public bool Save()

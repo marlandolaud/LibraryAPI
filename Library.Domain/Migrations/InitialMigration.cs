@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-
-namespace LibraryAPI.Migrations
+﻿namespace Library.Domain.Entities
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+    using System;
+
     public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

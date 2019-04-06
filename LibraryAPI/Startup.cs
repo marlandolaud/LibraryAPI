@@ -1,7 +1,7 @@
-﻿using LibraryAPI.Entities;
+﻿using Library.Domain.Entities;
 using LibraryAPI.Helpers;
 using LibraryAPI.Models.Validations;
-using LibraryAPI.Services;
+using Library.Domain.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -62,19 +62,19 @@ namespace LibraryAPI
             }
 
             AutoMapper.Mapper.Initialize(mapper => {
-                mapper.CreateMap<Entities.Author, Models.AuthorDto>()
+                mapper.CreateMap<Library.Domain.Entities.Author, Models.AuthorDto>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
                 .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.GetCurrentAge()));
 
-                mapper.CreateMap<Entities.Book, Models.BookDto>();
+                mapper.CreateMap<Library.Domain.Entities.Book, Models.BookDto>();
 
-                mapper.CreateMap<Models.AuthorForCreationDto, Entities.Author>();
+                mapper.CreateMap<Models.AuthorForCreationDto, Library.Domain.Entities.Author>();
 
-                mapper.CreateMap<Models.BookForCreationDto, Entities.Book>();
+                mapper.CreateMap<Models.BookForCreationDto, Library.Domain.Entities.Book>();
 
-                mapper.CreateMap<Models.BookForUpdateDto, Entities.Book>();
+                mapper.CreateMap<Models.BookForUpdateDto, Library.Domain.Entities.Book>();
 
-                mapper.CreateMap<Entities.Book, Models.BookForUpdateDto>();
+                mapper.CreateMap<Library.Domain.Entities.Book, Models.BookForUpdateDto>();
 
             });
 

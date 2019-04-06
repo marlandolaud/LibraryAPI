@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Library.Domain.Entities
+﻿namespace Library.Domain.Entities
 {
+    using Microsoft.EntityFrameworkCore;
+
     public class LibraryContext : DbContext
     {
         public LibraryContext(DbContextOptions<LibraryContext> options)
