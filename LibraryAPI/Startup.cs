@@ -1,7 +1,7 @@
 ﻿using Library.Domain.Entities;
+using Library.Domain.Infrastructure;
 using LibraryAPI.Helpers;
 using LibraryAPI.Models.Validations;
-using Library.Domain.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -38,8 +38,8 @@ namespace LibraryAPI
             services.AddDbContext<LibraryContext>(o => o.UseSqlServer(connectionString));
 
             // register the repository
-            services.AddScoped<ILibraryRepository, LibraryRepository>();
             services.AddSingleton<IBookValidation, BookValidation>();
+            DomainDependencyInjectionBinder.Bind(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
