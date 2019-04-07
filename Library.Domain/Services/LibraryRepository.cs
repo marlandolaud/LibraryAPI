@@ -75,7 +75,17 @@
             if (!string.IsNullOrEmpty(parameters.Genre))
             {
                 collectionBeforePaging = collectionBeforePaging
-                    .Where(collection => collection.Genre.Equals(parameters.Genre, StringComparison.OrdinalIgnoreCase));
+                    .Where(collection => collection.Genre.Equals(parameters.Genre.Trim(), StringComparison.InvariantCultureIgnoreCase));
+            }
+
+            if (!string.IsNullOrWhiteSpace(parameters.Search))
+            {
+                var searchLowerInvariant = parameters.Search.Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(search => search.Genre.ToLowerInvariant().Contains(searchLowerInvariant)
+                    || search.FirstName.ToLowerInvariant().Contains(searchLowerInvariant)
+                    || search.LastName.ToLowerInvariant().Contains(searchLowerInvariant));
             }
 
             return PagedList<Author>.Create(collectionBeforePaging, parameters.PageNumber, parameters.PageSize);

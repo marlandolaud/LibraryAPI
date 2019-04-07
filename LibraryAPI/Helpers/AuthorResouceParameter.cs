@@ -27,5 +27,7 @@
         }
 
         public string Genre { get; set; }
+
+        public string Search { get; set; }
     }
 }
