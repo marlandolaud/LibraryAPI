@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using LibraryAPI.Helpers;
+using Library.Domain;
 
 namespace LibraryAPI.Controllers
 {
@@ -26,9 +27,9 @@ namespace LibraryAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAuthors(AuthorsResourceParameters authorsResourceParameters)
+        public IActionResult GetAuthors(AuthorResouceParameter authorsResourceParameters)
         {
-            var authorsFromRepo = libraryRepository.GetAuthors(authorsResourceParameters); // map this to RepositoryPager
+            var authorsFromRepo = libraryRepository.GetAuthors(authorsResourceParameters);
 
             var authors = Mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo);
 

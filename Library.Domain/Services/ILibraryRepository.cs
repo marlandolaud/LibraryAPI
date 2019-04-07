@@ -6,9 +6,7 @@
 
     public interface ILibraryRepository
     {
-        IEnumerable<Author> GetAuthors();
-
-        IEnumerable<Author> GetAuthors(RepositoryPager pager);
+        IEnumerable<Author> GetAuthors(IRepositoryPager pager);
 
         Author GetAuthor(Guid authorId);
 
