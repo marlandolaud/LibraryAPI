@@ -64,14 +64,21 @@
             return _context.Authors.FirstOrDefault(a => a.Id == authorId);
         }
 
-        public PagedList<Author> GetAuthors(IRepositoryPager pager)
+        public PagedList<Author> GetAuthors(IAuthorsRepositoryParameters parameters)
         {
 
             var collectionBeforePaging = _context.Authors
                 .OrderBy(a => a.FirstName)
-                .ThenBy(a => a.LastName);
+                .ThenBy(a => a.LastName)
+                .AsQueryable();
 
-            return PagedList<Author>.Create(collectionBeforePaging, pager.PageNumber, pager.PageSize);
+            if (!string.IsNullOrEmpty(parameters.Genre))
+            {
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(collection => collection.Genre.Equals(parameters.Genre, StringComparison.OrdinalIgnoreCase));
+            }
+
+            return PagedList<Author>.Create(collectionBeforePaging, parameters.PageNumber, parameters.PageSize);
         }
 
         public IEnumerable<Author> GetAuthors(IEnumerable<Guid> authorIds)

@@ -1,12 +1,8 @@
-﻿using Library.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace LibraryAPI.Helpers
+﻿namespace LibraryAPI.Helpers
 {
-    public class AuthorResouceParameter : IRepositoryPager
+    using Library.Domain;
+
+    public class AuthorResouceParameter : IAuthorsRepositoryParameters
     {
         const int MaxPageSize = 20;
 
@@ -29,5 +25,7 @@ namespace LibraryAPI.Helpers
                 _pageSize = value;
             }
         }
+
+        public string Genre { get; set; }
     }
 }

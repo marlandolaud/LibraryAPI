@@ -149,7 +149,8 @@ namespace LibraryAPI.Controllers
                         new
                         {
                             pageNumber = authorsResourceParameters.PageNumber - 1,
-                            pageSize = authorsResourceParameters.PageSize
+                            pageSize = authorsResourceParameters.PageSize,
+                            genre = authorsResourceParameters.Genre
                         });
             }
             else
@@ -158,7 +159,8 @@ namespace LibraryAPI.Controllers
                         new
                         {
                             pageNumber = authorsResourceParameters.PageNumber + 1,
-                            pageSize = authorsResourceParameters.PageSize
+                            pageSize = authorsResourceParameters.PageSize,
+                            genre = authorsResourceParameters.Genre
                         });
             }            
         }
