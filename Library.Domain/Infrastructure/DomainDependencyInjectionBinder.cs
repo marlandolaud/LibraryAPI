@@ -7,7 +7,7 @@
     {
         public static void Bind(IServiceCollection services)
         {
-            services.AddScoped<ILibraryRepository, LibraryRepository>();
+            services.AddSingleton<ILibraryRepository, LibraryRepository>();
         }
     }
 }
