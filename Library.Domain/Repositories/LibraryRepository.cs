@@ -104,7 +104,6 @@
         public void UpdateAuthor(Author author)
         {
             // no code in this implementation
-            throw new NotImplementedException();
         }
 
         public Book GetBookForAuthor(Guid authorId, Guid bookId)
@@ -120,7 +119,6 @@
         public void UpdateBookForAuthor(Book book)
         {
             // no code in this implementation
-            throw new NotImplementedException();
         }
 
         public bool Save()
