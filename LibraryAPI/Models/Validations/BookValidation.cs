@@ -1,5 +1,6 @@
 ﻿namespace LibraryAPI.Models.Validations
 {
+    using Library.Contracts.Request.Book;
     using Microsoft.AspNetCore.Mvc.ModelBinding;
 
     public class BookValidation : IBookValidation

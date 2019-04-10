@@ -1,4 +1,9 @@
-﻿using Library.Domain.Entities;
+﻿using Library.Contracts.Request.Author;
+using Library.Contracts.Request.Book;
+using Library.Contracts.Response.Author;
+using Library.Contracts.Response.Book;
+using Library.Domain;
+using Library.Domain.Entities;
 using Library.Domain.Infrastructure;
 using LibraryAPI.Helpers;
 using LibraryAPI.Models.Validations;
@@ -50,6 +55,7 @@ namespace LibraryAPI
                 var actionContext = implementationFactory.GetService<IActionContextAccessor>().ActionContext;
                 return new UrlHelper(actionContext);
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,19 +78,19 @@ namespace LibraryAPI
             }
 
             AutoMapper.Mapper.Initialize(mapper => {
-                mapper.CreateMap<Library.Domain.Entities.Author, Models.AuthorDto>()
+                mapper.CreateMap<Library.Domain.Entities.Author, AuthorDto>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
                 .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.GetCurrentAge()));
 
-                mapper.CreateMap<Library.Domain.Entities.Book, Models.BookDto>();
+                mapper.CreateMap<Library.Domain.Entities.Book, BookDto>();
 
-                mapper.CreateMap<Models.AuthorForCreationDto, Library.Domain.Entities.Author>();
+                mapper.CreateMap<AuthorForCreationDto, Library.Domain.Entities.Author>();
 
-                mapper.CreateMap<Models.BookForCreationDto, Library.Domain.Entities.Book>();
+                mapper.CreateMap<BookForCreationDto, Library.Domain.Entities.Book>();
 
-                mapper.CreateMap<Models.BookForUpdateDto, Library.Domain.Entities.Book>();
+                mapper.CreateMap<BookForUpdateDto, Library.Domain.Entities.Book>();
 
-                mapper.CreateMap<Library.Domain.Entities.Book, Models.BookForUpdateDto>();
+                mapper.CreateMap<Library.Domain.Entities.Book, BookForUpdateDto>();
 
             });
 

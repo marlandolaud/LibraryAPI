@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
+using Library.Contracts.Request.Author;
+using Library.Contracts.Response.Author;
 using Library.Domain.Entities;
+using Library.Domain.Repositories;
 using LibraryAPI.Helpers;
-using LibraryAPI.Models;
-using Library.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 

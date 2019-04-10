@@ -1,4 +1,4 @@
-﻿namespace Library.Domain.Services
+﻿namespace Library.Domain.Repositories
 {
     using Library.Domain.Entities;
     using System;

@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
+using Library.Contracts.Request.Author;
+using Library.Contracts.Response.Author;
 using Library.Domain.Entities;
-using Library.Domain.Services;
+using Library.Domain.Repositories;
 using LibraryAPI.Helpers;
-using LibraryAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -151,7 +152,8 @@ namespace LibraryAPI.Controllers
                             pageNumber = authorsResourceParameters.PageNumber - 1,
                             pageSize = authorsResourceParameters.PageSize,
                             genre = authorsResourceParameters.Genre,
-                            search = authorsResourceParameters.Search
+                            search = authorsResourceParameters.Search,
+                            orderBy = authorsResourceParameters.OrderBy
                         });
             }
             else
@@ -162,7 +164,8 @@ namespace LibraryAPI.Controllers
                             pageNumber = authorsResourceParameters.PageNumber + 1,
                             pageSize = authorsResourceParameters.PageSize,
                             genre = authorsResourceParameters.Genre,
-                            search = authorsResourceParameters.Search
+                            search = authorsResourceParameters.Search,
+                            orderBy = authorsResourceParameters.OrderBy
                         });
             }            
         }

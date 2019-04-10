@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace LibraryAPI.Models
+﻿namespace Library.Contracts.Request.Author
 {
+    using Library.Contracts.Request.Book;
+    using System;
+    using System.Collections.Generic;
+
     public class AuthorForCreationDto
     {
         public string FirstName { get; set; }
@@ -15,7 +14,7 @@ namespace LibraryAPI.Models
 
         public string Genre { get; set; }
 
-        public ICollection<BookForCreationDto> Books { get; set; } 
+        public ICollection<BookForCreationDto> Books { get; set; }
             = new List<BookForCreationDto>();
     }
 }

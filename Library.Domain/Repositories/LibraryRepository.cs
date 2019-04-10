@@ -1,6 +1,9 @@
-﻿namespace Library.Domain.Services
+﻿namespace Library.Domain.Repositories
 {
+    using Library.Contracts.Response.Author;
     using Library.Domain.Entities;
+    using Library.Domain.Helpers;
+    using Library.Domain.Services;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -9,9 +12,12 @@
     {
         private LibraryContext _context;
 
-        public LibraryRepository(LibraryContext context)
+        private readonly IPropertyMappingService propertyMappingService;
+
+        public LibraryRepository(LibraryContext context, IPropertyMappingService propertyMappingService)
         {
             _context = context;
+            this.propertyMappingService = propertyMappingService;
         }
 
         public void AddAuthor(Author author)
@@ -66,11 +72,7 @@
 
         public PagedList<Author> GetAuthors(IAuthorsRepositoryParameters parameters)
         {
-
-            var collectionBeforePaging = _context.Authors
-                .OrderBy(a => a.FirstName)
-                .ThenBy(a => a.LastName)
-                .AsQueryable();
+            var collectionBeforePaging = _context.Authors.ApplySort(parameters.OrderBy, propertyMappingService.GetPropertyMapping<AuthorDto, Author>());
 
             if (!string.IsNullOrEmpty(parameters.Genre))
             {

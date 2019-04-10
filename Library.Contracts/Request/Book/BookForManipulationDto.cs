@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace LibraryAPI.Models
+﻿namespace Library.Contracts.Request.Book
 {
+    using System.ComponentModel.DataAnnotations;
+
     public abstract class BookForManipulationDto
     {
         [Required(ErrorMessage = "you should include a title")]

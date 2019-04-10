@@ -29,5 +29,9 @@
         public string Genre { get; set; }
 
         public string Search { get; set; }
+
+        public string OrderBy { get; set; } = "Name";
+
+        public bool Descending { get; set; }
     }
 }
