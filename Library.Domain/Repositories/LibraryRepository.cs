@@ -2,7 +2,7 @@
 {
     using Library.Contracts.Response.Author;
     using Library.Domain.Entities;
-    using Library.Domain.Helpers;
+    using Library.Domain.Extensions;
     using Library.Domain.Services;
     using System;
     using System.Collections.Generic;
