@@ -8,19 +8,19 @@
 
     public class PropertyMappingService : IPropertyMappingService
     {
-        private readonly Dictionary<string, PropertyMappingValue> _authorPropertyMapping =
-            new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
-            {
-                {"Id", new PropertyMappingValue(new List<string>(){"Id"}) },
-                {"Genre", new PropertyMappingValue(new List<string>(){"Genre"}) },
-                {"Age", new PropertyMappingValue(new List<string>(){"DateOfBirth"}) },
-                {"Name", new PropertyMappingValue(new List<string>(){"FirstName", "LastName"}) },
-            };
+        private readonly Dictionary<string, PropertyMappingValue> _authorPropertyMapping;
 
-        private IList<IPropertyMapping> propertyMappings = new List<IPropertyMapping>();
+        private readonly IList<IPropertyMapping> propertyMappings = new List<IPropertyMapping>();
 
         public PropertyMappingService()
         {
+            _authorPropertyMapping = new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+            {
+                {"Id", new PropertyMappingValue(new List<string>(){ nameof(Author.Id)}) },
+                {"Genre", new PropertyMappingValue(new List<string>(){ nameof(Author.Genre) }) },
+                {"Age", new PropertyMappingValue(new List<string>(){ nameof(Author.DateOfBirth) }) },
+                {"Name", new PropertyMappingValue(new List<string>(){ nameof(Author.FirstName), nameof(Author.LastName) })},
+            };
             propertyMappings.Add(new PropertyMapping<AuthorDto, Author>(_authorPropertyMapping));
         }
 
