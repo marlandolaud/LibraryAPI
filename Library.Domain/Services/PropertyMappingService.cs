@@ -2,6 +2,7 @@
 {
     using Library.Contracts.Response.Author;
     using Library.Domain.Entities;
+    using Library.Domain.Extensions.Helpers;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -38,6 +39,22 @@
 
                 throw;
             }
+        }
+
+        public bool ValidMappingExistsForFields<TSource, TDestination>(string fields)
+        {
+            bool result = false;
+
+            var match = propertyMappings.OfType<PropertyMapping<TSource, TDestination>>();
+
+            if (string.IsNullOrWhiteSpace(fields))
+            {
+                return result;
+            }
+
+            result = IQueryableSortHelper.Validate(fields, match.Single().MappingDictionary);
+
+            return result;
         }
     }
 }

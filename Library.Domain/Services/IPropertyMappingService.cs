@@ -5,5 +5,7 @@
     public interface IPropertyMappingService
     {
         Dictionary<string, PropertyMappingValue> GetPropertyMapping<TSource, TDestination>();
+
+        bool ValidMappingExistsForFields<TSource, TDestination>(string fields);
     }
 }

@@ -263,7 +263,7 @@ namespace Library.Domain.UnitTests.Extensions
             var authors = LibraryTestHelper.GetAuthors();
 
             Assert.Throws<ArgumentException>(() => authors.AsQueryable().ApplySort(OrderBy, PropertyMappingService.GetPropertyMapping<AuthorDto, Author>()));
-        }
+        }     
 
         [Fact]
         public void InvalidDelimiterThrowsException()
@@ -284,5 +284,53 @@ namespace Library.Domain.UnitTests.Extensions
 
             Assert.Throws<ArgumentNullException>(() => authors.AsQueryable().ApplySort(OrderBy, null));
         }
+
+        [Fact]
+        public void ShouldReturnValidIfFirsWordInKeyList()
+        {
+            const string OrderBy = "name ";
+
+            var expectedResult = true;
+
+            var result = PropertyMappingService.ValidMappingExistsForFields<AuthorDto, Author>(OrderBy);
+
+            Assert.Equal(expectedResult, result);
+        }
+
+        [Fact]
+        public void ShouldReturnValidIfFirsWordInKeyListWithDesc()
+        {
+            const string OrderBy = "name desc";
+
+            var expectedResult = true;
+
+            var result = PropertyMappingService.ValidMappingExistsForFields<AuthorDto, Author>(OrderBy);
+
+            Assert.Equal(expectedResult, result);
+        }
+
+        [Fact]
+        public void ShouldReturnValidIfFirsWordInKeyListEvenWhenNextWordInvalid()
+        {
+            const string OrderBy = "name barr ";
+
+            var expectedResult = true;
+
+            var result = PropertyMappingService.ValidMappingExistsForFields<AuthorDto, Author>(OrderBy);
+
+            Assert.Equal(expectedResult, result);
+        }
+
+        [Fact]
+        public void ShouldReturnInvalidIfPropertyNameNotInKeyList()
+        {
+            const string OrderBy = "madeuppropertyname ";
+
+            var expectedResult = false;
+
+            var result = PropertyMappingService.ValidMappingExistsForFields<AuthorDto, Author>(OrderBy);
+
+            Assert.Equal(expectedResult, result);
+        }       
     }
 }

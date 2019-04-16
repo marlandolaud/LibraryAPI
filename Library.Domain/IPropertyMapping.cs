@@ -1,4 +1,4 @@
-﻿namespace Library.Domain.Services
+﻿namespace Library.Domain
 {
     public interface IPropertyMapping
     {

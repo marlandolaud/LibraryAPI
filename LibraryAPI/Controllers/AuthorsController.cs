@@ -3,6 +3,7 @@ using Library.Contracts.Request.Author;
 using Library.Contracts.Response.Author;
 using Library.Domain.Entities;
 using Library.Domain.Repositories;
+using Library.Domain.Services;
 using LibraryAPI.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -28,16 +29,28 @@ namespace LibraryAPI.Controllers
 
         private readonly IUrlHelper urlHelper;
 
-        public AuthorsController(ILogger<AuthorsController> logger, ILibraryRepository libraryRepository, IUrlHelper urlHelper)
+        private readonly IPropertyMappingService propertyMappingService;
+
+        public AuthorsController(
+            ILogger<AuthorsController> logger, 
+            ILibraryRepository libraryRepository, 
+            IUrlHelper urlHelper,
+            IPropertyMappingService propertyMappingService)
         {
             this.logger = logger;
             this.libraryRepository = libraryRepository;
             this.urlHelper = urlHelper;
+            this.propertyMappingService = propertyMappingService;
         }
 
         [HttpGet(Name = GetAuthorsRoute)]
         public IActionResult GetAuthors(AuthorResouceParameter authorsResourceParameters)
         {
+            if (!propertyMappingService.ValidMappingExistsForFields<AuthorDto, Author>(authorsResourceParameters.OrderBy))
+            {
+                return BadRequest();
+            }
+
             var authorsFromRepo = libraryRepository.GetAuthors(authorsResourceParameters);
 
             var paginationMetadata = new

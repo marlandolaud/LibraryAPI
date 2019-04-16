@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Library.Domain.Services
+namespace Library.Domain
 {
     public class PropertyMapping<T1, T2> : IPropertyMapping
     {
