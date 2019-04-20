@@ -177,7 +177,7 @@ namespace LibraryAPI.Controllers
                             genre = authorsResourceParameters.Genre,
                             search = authorsResourceParameters.Search,
                             orderBy = authorsResourceParameters.OrderBy,
-                            fieds = authorsResourceParameters.Fields
+                            fields = authorsResourceParameters.Fields
                         });
             }
             else
@@ -190,7 +190,7 @@ namespace LibraryAPI.Controllers
                             genre = authorsResourceParameters.Genre,
                             search = authorsResourceParameters.Search,
                             orderBy = authorsResourceParameters.OrderBy,
-                            fieds = authorsResourceParameters.Fields
+                            fields = authorsResourceParameters.Fields
                         });
             }            
         }
