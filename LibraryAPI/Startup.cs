@@ -37,6 +37,10 @@ namespace LibraryAPI
                 setup.ReturnHttpNotAcceptable = true;
                 setup.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
                 setup.InputFormatters.Add(new XmlDataContractSerializerInputFormatter());
+            })
+            .AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
             });
 
             // register the DbContext on the container, getting the connection string from
