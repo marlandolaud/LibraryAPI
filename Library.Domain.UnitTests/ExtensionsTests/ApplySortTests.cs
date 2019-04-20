@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Library.Domain.UnitTests.Extensions
 {
-    public class IQueryableExtensionsTests
+    public class ApplySortTests
     {
         private IPropertyMappingService PropertyMappingService { get; set; } = new PropertyMappingService();
 
