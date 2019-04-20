@@ -33,5 +33,7 @@
         public string OrderBy { get; set; } = "Name";
 
         public bool Descending { get; set; }
+
+        public string Fields { get; set; }
     }
 }

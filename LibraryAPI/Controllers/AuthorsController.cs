@@ -2,6 +2,7 @@
 using Library.Contracts.Request.Author;
 using Library.Contracts.Response.Author;
 using Library.Domain.Entities;
+using Library.Domain.Extensions;
 using Library.Domain.Repositories;
 using Library.Domain.Services;
 using LibraryAPI.Helpers;
@@ -31,22 +32,31 @@ namespace LibraryAPI.Controllers
 
         private readonly IPropertyMappingService propertyMappingService;
 
+        private readonly ITypeHelperService typeHelperService;
+
         public AuthorsController(
             ILogger<AuthorsController> logger, 
             ILibraryRepository libraryRepository, 
             IUrlHelper urlHelper,
-            IPropertyMappingService propertyMappingService)
+            IPropertyMappingService propertyMappingService,
+            ITypeHelperService typeHelperService)
         {
             this.logger = logger;
             this.libraryRepository = libraryRepository;
             this.urlHelper = urlHelper;
             this.propertyMappingService = propertyMappingService;
+            this.typeHelperService = typeHelperService;
         }
 
         [HttpGet(Name = GetAuthorsRoute)]
         public IActionResult GetAuthors(AuthorResouceParameter authorsResourceParameters)
         {
             if (!propertyMappingService.ValidMappingExistsForFields<AuthorDto, Author>(authorsResourceParameters.OrderBy))
+            {
+                return BadRequest();
+            }
+
+            if (!typeHelperService.TypeHasProperties<AuthorDto>(authorsResourceParameters.Fields))
             {
                 return BadRequest();
             }
@@ -67,7 +77,7 @@ namespace LibraryAPI.Controllers
 
             var authors = Mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo);
 
-            return Ok(authors);
+            return Ok(authors.ShapeData(authorsResourceParameters.Fields));
         }
 
         [HttpGet("{id}", Name = GetAuthorRoute)]
@@ -166,7 +176,8 @@ namespace LibraryAPI.Controllers
                             pageSize = authorsResourceParameters.PageSize,
                             genre = authorsResourceParameters.Genre,
                             search = authorsResourceParameters.Search,
-                            orderBy = authorsResourceParameters.OrderBy
+                            orderBy = authorsResourceParameters.OrderBy,
+                            fieds = authorsResourceParameters.Fields
                         });
             }
             else
@@ -178,7 +189,8 @@ namespace LibraryAPI.Controllers
                             pageSize = authorsResourceParameters.PageSize,
                             genre = authorsResourceParameters.Genre,
                             search = authorsResourceParameters.Search,
-                            orderBy = authorsResourceParameters.OrderBy
+                            orderBy = authorsResourceParameters.OrderBy,
+                            fieds = authorsResourceParameters.Fields
                         });
             }            
         }

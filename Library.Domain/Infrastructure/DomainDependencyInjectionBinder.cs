@@ -10,6 +10,7 @@
         {
             services.AddSingleton<ILibraryRepository, LibraryRepository>();
             services.AddTransient<IPropertyMappingService, PropertyMappingService>();
+            services.AddTransient<ITypeHelperService, TypeHelperService>();
         }
     }
 }
